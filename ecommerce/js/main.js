@@ -1,11 +1,13 @@
 document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("footerYear").textContent = new Date().getFullYear();
   initNavbarScroll();
+  loadCart();
   await initApp();
   bindSearchEvents();
   document.getElementById("modalAddToCartBtn").addEventListener("click", () => {
     if (!currentModalProduct) return;
-    console.log("TODO: agregar al carrito", currentModalProduct.title);
+    addToCart(currentModalProduct);
+    console.log(getCartCount())
     showToast(
       `"${currentModalProduct.title.slice(0, 40)}" agregado al carrito.`,
       "success",
