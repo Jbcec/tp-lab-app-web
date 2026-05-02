@@ -41,17 +41,6 @@
           <a class="navbar-brand luxe-brand" href="#"
             ><span class="brand-pre">✦</span> LUXE</a
           >
-          <button
-            class="navbar-toggler luxe-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#mainNav"
-            aria-controls="mainNav"
-            aria-expanded="false"
-            aria-label="Abrir menú"
-          >
-            <i class="bi bi-list"></i>
-          </button>
           <div class="collapse navbar-collapse" id="mainNav">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
@@ -61,24 +50,9 @@
                 <a class="nav-link" href="#products-section">Productos</a>
               </li>
             </ul>
-            <div class="luxe-search-wrapper me-3">
-              <label for="searchInput" class="visually-hidden"
-                >Buscar productos</label
-              >
-              <div class="input-group">
-                <span class="input-group-text luxe-search-icon">
-                  <i class="bi bi-search"></i>
-                </span>
-                <input
-                  type="search"
-                  id="searchInput"
-                  class="form-control luxe-search-input"
-                  placeholder="Buscar productos…"
-                  aria-label="Buscar productos"
-                  autocomplete="off"
-                />
-              </div>
-            </div>
+            <div id="userMenuCollapse"></div>
+          </div>
+          <div class="navbar-actions">
             <button
               class="luxe-cart-btn"
               id="cartToggleBtn"
@@ -87,9 +61,18 @@
               aria-controls="cartSidebar"
             >
               <i class="bi bi-bag"></i>
-              <span class="cart-badge" id="cartBadge" aria-live="polite"
-                >0</span
-              >
+              <span class="cart-badge" id="cartBadge" aria-live="polite">0</span>
+            </button>
+            <button
+              class="navbar-toggler luxe-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#mainNav"
+              aria-controls="mainNav"
+              aria-expanded="false"
+              aria-label="Abrir menú"
+            >
+              <i class="bi bi-list"></i>
             </button>
           </div>
         </div>
@@ -115,8 +98,7 @@
       <div class="container">
         <h2 class="section-title text-center">Categorías</h2>
         <div class="swiper categories-swiper">
-          <div class="swiper-wrapper" id="categoriesWrapper">
-          </div>
+          <div class="swiper-wrapper" id="categoriesWrapper"></div>
           <div class="swiper-pagination"></div>
         </div>
       </div>
@@ -128,12 +110,29 @@
           <h2 class="section-title">Todos los productos</h2>
           <p class="section-subtitle" id="productsCount"></p>
         </div>
-        <div
-          class="luxe-filter-bar"
-          id="filterBar"
-          role="group"
-          aria-label="Filtrar por categoría"
-        ></div>
+        <div class="luxe-search-filter-bar">
+          <div class="luxe-filter-bar"
+            id="filterBar"
+            role="group"
+            aria-label="Filtrar por categoría"
+          ></div>
+          <div class="luxe-search-wrapper">
+            <label for="searchInput" class="visually-hidden">Buscar productos</label>
+            <div class="input-group">
+              <span class="input-group-text luxe-search-icon">
+                <i class="bi bi-search"></i>
+              </span>
+              <input
+                type="search"
+                id="searchInput"
+                class="form-control luxe-search-input"
+                placeholder="Buscar productos…"
+                aria-label="Buscar productos"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+        </div>
         <div
           class="row g-4"
           id="productsGrid"

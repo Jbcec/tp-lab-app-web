@@ -96,20 +96,19 @@ function renderUserMenu() {
   const session = storageGetSession();
   if (!session) return;
 
-  const cartBtn = document.getElementById('cartToggleBtn');
+  const container = document.getElementById('userMenuCollapse');
+  if (!container) return;
 
-  const wrapper = document.createElement('div');
-  wrapper.className = 'luxe-user-menu ms-3';
-  wrapper.innerHTML = `
-    <span class="user-greeting" aria-label="Usuario activo: ${session.name}">
-      <i class="bi bi-person-circle me-1" aria-hidden="true"></i>${session.name}
-    </span>
-    <button class="logout-btn" id="logoutBtn" aria-label="Cerrar sesión">
-      <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
-    </button>
+  container.innerHTML = `
+    <div class="luxe-user-menu">
+      <span class="user-greeting">
+        <i class="bi bi-person-circle me-1" aria-hidden="true"></i>${session.name}
+      </span>
+      <button class="logout-btn" id="logoutBtn" aria-label="Cerrar sesión">
+        <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
+      </button>
+    </div>
   `;
-
-  cartBtn.insertAdjacentElement('afterend', wrapper);
 
   document.getElementById('logoutBtn').addEventListener('click', handleLogout);
 }
