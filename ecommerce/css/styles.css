@@ -540,6 +540,93 @@ main#products-section {
   border-radius: var(--radius-sm) 0 0 var(--radius-sm) !important;
 }
 
+/* Modal */
+.luxe-modal {
+  background: var(--color-surface) !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7) !important;
+  color: var(--color-text);
+}
+.luxe-modal-header {
+  border-bottom: 1px solid var(--color-border) !important;
+  padding: 1.5rem 2rem !important;
+}
+.luxe-modal-header .modal-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 300;
+}
+.luxe-close {
+  filter: invert(1) !important;
+  opacity: 0.5 !important;
+}
+.luxe-close:hover {
+  opacity: 1 !important;
+}
+.luxe-modal-body {
+  padding: 2rem !important;
+}
+.modal-img-wrapper {
+  background: #fafafa;
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 260px;
+}
+.modal-product-img {
+  max-height: 220px;
+  object-fit: contain;
+}
+.modal-category-badge {
+  display: inline-block;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  border: 1px solid var(--color-gold);
+  padding: 0.2rem 0.7rem;
+  border-radius: 100px;
+  margin-bottom: 0.75rem;
+}
+.modal-product-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.3;
+  margin-bottom: 0.5rem;
+}
+.modal-product-price {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--color-gold);
+  margin-bottom: 0.5rem;
+}
+.modal-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+.modal-rating i {
+  color: var(--color-gold);
+}
+.modal-product-desc {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  line-height: 1.75;
+}
+.luxe-modal-footer {
+  border-top: 1px solid var(--color-border) !important;
+  padding: 1.25rem 2rem !important;
+  gap: 0.75rem;
+}
+
 @media (max-width: 991px) {
   .luxe-search-wrapper {
     width: 100%;
