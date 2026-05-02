@@ -1,15 +1,19 @@
 document.addEventListener('DOMContentLoaded', async () => {
+
+  if (!storageIsLoggedIn()) {
+    window.location.replace('login.html');
+    return;
+  }
+
   document.getElementById('footerYear').textContent = new Date().getFullYear();
 
-  initNavbarScroll();
+  renderUserMenu();
   loadCart();
   updateCartBadge();
-
+  initNavbarScroll();
   await initApp();
-
   bindGlobalEvents();
 });
-
 
 async function initApp() {
   const loader = document.getElementById('loader');
@@ -22,7 +26,9 @@ async function initApp() {
     ]);
 
     allProducts = products;
+
     renderFilterButtons(categories);
+
     renderProductGrid();
 
   } catch (error) {
@@ -33,9 +39,7 @@ async function initApp() {
   }
 }
 
-
 function bindGlobalEvents() {
-
   document.getElementById('cartToggleBtn').addEventListener('click', openCart);
   document.getElementById('cartCloseBtn').addEventListener('click', closeCart);
   document.getElementById('cartOverlay').addEventListener('click', closeCart);
@@ -76,7 +80,9 @@ function bindGlobalEvents() {
   });
 
   const searchInput = document.getElementById('searchInput');
-  searchInput.addEventListener('input', e => filterBySearch(e.target.value));
+  searchInput.addEventListener('input', e => {
+    filterBySearch(e.target.value);
+  });
 
   document.getElementById('clearSearchBtn').addEventListener('click', () => {
     searchInput.value = '';
@@ -84,6 +90,38 @@ function bindGlobalEvents() {
   });
 }
 
+function renderUserMenu() {
+  const session = storageGetSession();
+  if (!session) return;
+
+  const cartBtn = document.getElementById('cartToggleBtn');
+
+  const wrapper = document.createElement('div');
+  wrapper.className = 'luxe-user-menu ms-3';
+  wrapper.innerHTML = `
+    <span class="user-greeting" aria-label="Usuario activo: ${session.name}">
+      <i class="bi bi-person-circle me-1" aria-hidden="true"></i>${session.name}
+    </span>
+    <button class="logout-btn" id="logoutBtn" aria-label="Cerrar sesión">
+      <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
+    </button>
+  `;
+
+  cartBtn.insertAdjacentElement('afterend', wrapper);
+
+  document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+}
+
+async function handleLogout() {
+  const confirmed = await showConfirm(
+    '¿Cerrar sesión?',
+    'Vas a salir de tu cuenta. El carrito se mantendrá guardado.'
+  );
+  if (!confirmed) return;
+
+  storageClearSession();
+  window.location.href = 'login.html';
+}
 
 function initNavbarScroll() {
   const navbar = document.querySelector('.luxe-navbar');

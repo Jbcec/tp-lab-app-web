@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="LUXE Store — Iniciar sesión" />
+    <title>LUXE Store · Ingresar</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+      :root {
+        --color-bg:         #0e0e0e;
+        --color-surface:    #161616;
+        --color-surface-2:  #1e1e1e;
+        --color-border:     #2a2a2a;
+        --color-gold:       #c9a84c;
+        --color-gold-light: #e2c47a;
+        --color-gold-dim:   rgba(201, 168, 76, 0.12);
+        --color-text:       #e8e2d9;
+        --color-text-muted: #7a7469;
+        --color-error:      #e05c5c;
+        --font-display: 'Cormorant Garamond', Georgia, serif;
+        --font-body:    'DM Sans', system-ui, sans-serif;
+        --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      body {
+        background-color: var(--color-bg);
+        color: var(--color-text);
+        font-family: var(--font-body);
+        font-weight: 300;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .login-bg {
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(ellipse 60% 50% at 20% 60%, rgba(201,168,76,0.07) 0%, transparent 60%),
+          radial-gradient(ellipse 50% 60% at 80% 30%, rgba(201,168,76,0.05) 0%, transparent 60%);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      /* Grain */
+      .login-bg::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+        opacity: 0.5;
+      }
+
+      .login-card {
+        position: relative;
+        z-index: 1;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: 20px;
+        padding: 3rem 2.5rem 2.5rem;
+        width: 100%;
+        max-width: 420px;
+        animation: slideUp 0.7s var(--ease-out) forwards;
+      }
+
+      @keyframes slideUp {
+        from { opacity: 0; transform: translateY(32px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      .login-brand {
+        font-family: var(--font-display);
+        font-size: 2rem;
+        font-weight: 600;
+        letter-spacing: 0.25em;
+        color: var(--color-gold);
+        text-align: center;
+        margin-bottom: 0.25rem;
+      }
+
+      .login-tagline {
+        text-align: center;
+        font-size: 0.78rem;
+        letter-spacing: 0.1em;
+        color: var(--color-text-muted);
+        text-transform: uppercase;
+        margin-bottom: 2.5rem;
+      }
+
+      .login-divider {
+        height: 1px;
+        background: var(--color-border);
+        margin-bottom: 2rem;
+      }
+
+      .form-label {
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--color-text-muted);
+        margin-bottom: 0.4rem;
+      }
+
+      .luxe-input {
+        background: var(--color-surface-2) !important;
+        border: 1px solid var(--color-border) !important;
+        color: var(--color-text) !important;
+        font-family: var(--font-body);
+        font-size: 0.9rem;
+        border-radius: 8px !important;
+        padding: 0.7rem 1rem !important;
+        transition: border-color 0.3s, box-shadow 0.3s;
+      }
+
+      .luxe-input::placeholder { color: var(--color-text-muted); }
+
+      .luxe-input:focus {
+        border-color: var(--color-gold) !important;
+        box-shadow: 0 0 0 3px rgba(201,168,76,0.12) !important;
+        outline: none;
+      }
+
+      .luxe-input.is-invalid {
+        border-color: var(--color-error) !important;
+      }
+
+      .input-icon-wrapper {
+        position: relative;
+      }
+
+      .input-icon-wrapper .luxe-input {
+        padding-right: 2.8rem !important;
+      }
+
+      .toggle-password {
+        position: absolute;
+        right: 0.9rem;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: var(--color-text-muted);
+        cursor: pointer;
+        font-size: 1rem;
+        padding: 0;
+        transition: color 0.2s;
+      }
+
+      .toggle-password:hover { color: var(--color-gold); }
+
+      .field-error {
+        font-size: 0.75rem;
+        color: var(--color-error);
+        margin-top: 0.35rem;
+        display: none;
+      }
+
+      .field-error.visible { display: block; }
+
+      .luxe-btn-login {
+        width: 100%;
+        background: var(--color-gold);
+        color: #0e0e0e;
+        border: none;
+        font-family: var(--font-body);
+        font-size: 0.82rem;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        padding: 0.85rem;
+        border-radius: 8px;
+        cursor: pointer;
+        margin-top: 0.5rem;
+        transition: background 0.3s, box-shadow 0.3s, transform 0.15s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+
+      .luxe-btn-login:hover {
+        background: var(--color-gold-light);
+        box-shadow: 0 0 24px rgba(201,168,76,0.3);
+        transform: translateY(-1px);
+      }
+
+      .luxe-btn-login:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .btn-spinner {
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba(0,0,0,0.3);
+        border-top-color: #0e0e0e;
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+        display: none;
+      }
+
+      .luxe-btn-login.loading .btn-spinner { display: block; }
+      .luxe-btn-login.loading .btn-text   { display: none; }
+
+      @keyframes spin { to { transform: rotate(360deg); } }
+
+      .credentials-hint {
+        margin-top: 2rem;
+        border: 1px solid var(--color-border);
+        border-radius: 10px;
+        padding: 1rem 1.2rem;
+        background: var(--color-surface-2);
+      }
+
+      .credentials-hint p {
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--color-text-muted);
+        margin-bottom: 0.75rem;
+      }
+
+      .credential-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid var(--color-border);
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background 0.2s;
+      }
+
+      .credential-item:last-child { border-bottom: none; }
+
+      .credential-item:hover { background: var(--color-gold-dim); }
+
+      .credential-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 0.1rem;
+      }
+
+      .credential-name {
+        font-size: 0.82rem;
+        color: var(--color-text);
+      }
+
+      .credential-email {
+        font-size: 0.72rem;
+        color: var(--color-text-muted);
+      }
+
+      .credential-fill {
+        font-size: 0.65rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--color-gold);
+        opacity: 0.7;
+      }
+
+      .login-footer {
+        text-align: center;
+        margin-top: 1.5rem;
+        font-size: 0.78rem;
+        color: var(--color-text-muted);
+      }
+
+      .login-footer a {
+        color: var(--color-gold);
+        text-decoration: none;
+      }
+
+      .login-footer a:hover {
+        text-decoration: underline;
+      }
+
+      :focus-visible {
+        outline: 2px solid var(--color-gold);
+        outline-offset: 3px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="login-bg" aria-hidden="true"></div>
+
+    <main class="login-card" role="main">
+
+      <div class="login-brand" aria-label="LUXE Store">✦ LUXE</div>
+      <p class="login-tagline">Iniciar sesión</p>
+      <div class="login-divider"></div>
+
+      <form id="loginForm" novalidate aria-label="Formulario de inicio de sesión">
+
+        <div class="mb-4">
+          <label for="emailInput" class="form-label">Email</label>
+          <input
+            type="email"
+            id="emailInput"
+            class="form-control luxe-input"
+            placeholder="tu@email.com"
+            autocomplete="email"
+            required
+            aria-required="true"
+            aria-describedby="emailError"
+          />
+          <p class="field-error" id="emailError" role="alert"></p>
+        </div>
+
+        <div class="mb-4">
+          <label for="passwordInput" class="form-label">Contraseña</label>
+          <div class="input-icon-wrapper">
+            <input
+              type="password"
+              id="passwordInput"
+              class="form-control luxe-input"
+              placeholder="••••••••"
+              autocomplete="current-password"
+              required
+              aria-required="true"
+              aria-describedby="passwordError"
+            />
+            <button
+              type="button"
+              class="toggle-password"
+              id="togglePassword"
+              aria-label="Mostrar u ocultar contraseña"
+            >
+              <i class="bi bi-eye" id="eyeIcon"></i>
+            </button>
+          </div>
+          <p class="field-error" id="passwordError" role="alert"></p>
+        </div>
+        <button type="submit" class="luxe-btn-login" id="loginBtn">
+          <span class="btn-text">Ingresar</span>
+          <span class="btn-spinner" aria-hidden="true"></span>
+        </button>
+
+      </form>
+
+      <div class="credentials-hint" aria-label="Usuarios de prueba disponibles">
+        <p>Usuarios de prueba — hacé clic para autocompletar</p>
+
+        <div class="credential-item" role="button" tabindex="0"
+             data-email="admin@luxe.com" data-pass="admin123"
+             aria-label="Autocompletar como Admin">
+          <div class="credential-meta">
+            <span class="credential-name">Admin</span>
+            <span class="credential-email">admin@luxe.com · admin123</span>
+          </div>
+          <span class="credential-fill">Usar →</span>
+        </div>
+
+        <div class="credential-item" role="button" tabindex="0"
+             data-email="usuario@luxe.com" data-pass="user123"
+             aria-label="Autocompletar como Usuario">
+          <div class="credential-meta">
+            <span class="credential-name">Usuario</span>
+            <span class="credential-email">usuario@luxe.com · user123</span>
+          </div>
+          <span class="credential-fill">Usar →</span>
+        </div>
+
+        <div class="credential-item" role="button" tabindex="0"
+             data-email="demo@luxe.com" data-pass="demo123"
+             aria-label="Autocompletar como Demo">
+          <div class="credential-meta">
+            <span class="credential-name">Demo</span>
+            <span class="credential-email">demo@luxe.com · demo123</span>
+          </div>
+          <span class="credential-fill">Usar →</span>
+        </div>
+
+      </div>
+
+      <p class="login-footer">
+        ¿Problemas para ingresar?
+        <a href="index.html">Volver al inicio</a>
+      </p>
+
+    </main>
+
+    <script src="js/storage.js"></script>
+    <script>
+      const MOCK_USERS = [
+        { email: 'admin@luxe.com',   password: 'admin123', name: 'Admin'  },
+        { email: 'usuario@luxe.com', password: 'user123',  name: 'Usuario' },
+        { email: 'demo@luxe.com',    password: 'demo123',  name: 'Demo'   },
+      ];
+
+      const form          = document.getElementById('loginForm');
+      const emailInput    = document.getElementById('emailInput');
+      const passwordInput = document.getElementById('passwordInput');
+      const emailError    = document.getElementById('emailError');
+      const passwordError = document.getElementById('passwordError');
+      const loginBtn      = document.getElementById('loginBtn');
+      const toggleBtn     = document.getElementById('togglePassword');
+      const eyeIcon       = document.getElementById('eyeIcon');
+
+      if (storageIsLoggedIn()) {
+        window.location.replace('index.html');
+      }
+
+      toggleBtn.addEventListener('click', () => {
+        const isPassword = passwordInput.type === 'password';
+        passwordInput.type = isPassword ? 'text' : 'password';
+        eyeIcon.className  = isPassword ? 'bi bi-eye-slash' : 'bi bi-eye';
+      });
+
+      document.querySelectorAll('.credential-item').forEach(item => {
+        const fill = () => {
+          emailInput.value    = item.dataset.email;
+          passwordInput.value = item.dataset.pass;
+          clearErrors();
+          emailInput.focus();
+        };
+        item.addEventListener('click', fill);
+        item.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fill(); }
+        });
+      });
+
+      function clearErrors() {
+        emailInput.classList.remove('is-invalid');
+        passwordInput.classList.remove('is-invalid');
+        emailError.classList.remove('visible');
+        passwordError.classList.remove('visible');
+      }
+
+      function showFieldError(input, errorEl, message) {
+        input.classList.add('is-invalid');
+        errorEl.textContent = message;
+        errorEl.classList.add('visible');
+      }
+
+      function validate() {
+        clearErrors();
+        let valid = true;
+
+        if (!emailInput.value.trim()) {
+          showFieldError(emailInput, emailError, 'El email es obligatorio.');
+          valid = false;
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value)) {
+          showFieldError(emailInput, emailError, 'Ingresá un email válido.');
+          valid = false;
+        }
+
+        if (!passwordInput.value) {
+          showFieldError(passwordInput, passwordError, 'La contraseña es obligatoria.');
+          valid = false;
+        }
+
+        return valid;
+      }
+
+      form.addEventListener('submit', async e => {
+        e.preventDefault();
+        if (!validate()) return;
+
+        loginBtn.disabled = true;
+        loginBtn.classList.add('loading');
+
+        await new Promise(resolve => setTimeout(resolve, 600));
+
+        const email    = emailInput.value.trim().toLowerCase();
+        const password = passwordInput.value;
+
+        const user = MOCK_USERS.find(
+          u => u.email === email && u.password === password
+        );
+
+        loginBtn.disabled = false;
+        loginBtn.classList.remove('loading');
+
+        if (user) {
+          storageSetSession({ name: user.name, email: user.email });
+
+          await Swal.fire({
+            toast: true,
+            position: 'top-end',
+            icon: 'success',
+            title: `¡Bienvenido/a, ${user.name}!`,
+            showConfirmButton: false,
+            timer: 1500,
+            background: '#161616',
+            color: '#e8e2d9',
+            iconColor: '#c9a84c',
+          });
+
+          window.location.href = 'index.html';
+
+        } else {
+          showFieldError(emailInput, emailError, ' ');
+          showFieldError(passwordInput, passwordError, 'Email o contraseña incorrectos.');
+
+          Swal.fire({
+            toast: true,
+            position: 'bottom-end',
+            icon: 'error',
+            title: 'Credenciales incorrectas.',
+            showConfirmButton: false,
+            timer: 3000,
+            background: '#161616',
+            color: '#e8e2d9',
+          });
+        }
+      });
+
+      emailInput.addEventListener('input',    () => clearErrors());
+      passwordInput.addEventListener('input', () => clearErrors());
+    </script>
+  </body>
+</html>
