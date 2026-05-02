@@ -75,6 +75,18 @@
                 />
               </div>
             </div>
+            <button
+              class="luxe-cart-btn"
+              id="cartToggleBtn"
+              aria-label="Abrir carrito"
+              aria-expanded="false"
+              aria-controls="cartSidebar"
+            >
+              <i class="bi bi-bag"></i>
+              <span class="cart-badge" id="cartBadge" aria-live="polite"
+                >0</span
+              >
+            </button>
           </div>
         </div>
       </nav>
@@ -211,6 +223,51 @@
         </div>
       </div>
     </div>
+    <!-- Sidebar carrito -->
+    <aside
+      class="luxe-cart-sidebar"
+      id="cartSidebar"
+      aria-label="Carrito de compras"
+      aria-hidden="true"
+    >
+      <div class="cart-sidebar-inner">
+        <div class="cart-sidebar-header">
+          <h2 class="cart-title"><i class="bi bi-bag me-2"></i>Mi carrito</h2>
+          <button
+            class="cart-close-btn"
+            id="cartCloseBtn"
+            aria-label="Cerrar carrito"
+          >
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+        <div
+          class="cart-items-wrapper"
+          id="cartItemsList"
+          aria-live="polite"
+        ></div>
+        <div class="cart-empty" id="cartEmpty">
+          <i class="bi bi-bag-x"></i>
+          <p>Tu carrito está vacío.</p>
+        </div>
+        <div class="cart-sidebar-footer" id="cartFooter">
+          <div class="cart-total-row">
+            <span>Total</span>
+            <span class="cart-total-amount" id="cartTotal">$0.00</span>
+          </div>
+          <div class="cart-actions">
+            <button class="btn luxe-btn-outline w-100 mb-2" id="clearCartBtn">
+              <i class="bi bi-trash3 me-2"></i>Vaciar carrito
+            </button>
+            <button class="btn luxe-btn-primary w-100" id="checkoutBtn">
+              <i class="bi bi-credit-card me-2"></i>Finalizar compra
+            </button>
+          </div>
+        </div>
+      </div>
+    </aside>
+    <div class="cart-overlay" id="cartOverlay" aria-hidden="true"></div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="js/storage.js"></script>
