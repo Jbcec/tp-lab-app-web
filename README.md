@@ -141,7 +141,7 @@ ecommerce/
 1. Clonar el repositorio:
    ```bash
    git clone https://github.com/Jbcec/tp-lab-app-web.git
-   cd luxe-store/ecommerce
+   cd ecommerce
    ```
 
 2. Servir con un servidor local:
