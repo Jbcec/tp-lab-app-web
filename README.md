@@ -165,6 +165,6 @@ ecommerce/
 
 ## Integrantes
 
-| Nombre | GitHub |
-|--------|--------|
+| Nombre | GitHub | LinkedIn |
+|--------|--------|----------|
   | Juan Bautista Cechetto Landó | https://github.com/Jbcec |  https://www.linkedin.com/in/juanbautistacechettoland%C3%B3/
