@@ -12,8 +12,8 @@ LUXE Store es una aplicación web de e-commerce que consume la [FakeStoreAPI](ht
 
 ## Funcionalidades
 
-| # | Funcionalidad | Estado |
-|---|--------------|--------|
+| # | Funcionalidad
+|---|--------------|
 | 1 | Listado de productos desde FakeStoreAPI
 | 2 | Modal con detalle del producto (título, precio, descripción, rating)
 | 3 | Cerrar modal con X o con "Agregar al carrito"
@@ -22,7 +22,7 @@ LUXE Store es una aplicación web de e-commerce que consume la [FakeStoreAPI](ht
 | 6 | Sidebar con listado de productos en carrito
 | 7 | Controles de cantidad por producto (+/-) con estados habilitado/deshabilitado
 | 8 | Precio final por ítem actualizado según cantidad
-| 9 | Botón eliminar producto individual del carrito
+| 9 | Botón eliminar producto individual del carrito|
 | 10 | Botón vaciar carrito completo
 | 11 | Finalizar compra: limpiar carrito + mensaje de confirmación
 | 12 | Buscador de productos por nombre y categoría
