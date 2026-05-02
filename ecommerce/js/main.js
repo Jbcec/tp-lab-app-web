@@ -29,6 +29,8 @@ async function initApp() {
 
     renderFilterButtons(categories);
 
+    initCategoriesSwiper(categories);
+
     renderProductGrid();
 
   } catch (error) {

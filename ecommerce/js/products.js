@@ -2,13 +2,74 @@ let allProducts = [];
 let activeCategory = "all";
 let searchQuery = "";
 
+const CATEGORY_ICONS = {
+  "men's clothing":   "👔",
+  "women's clothing": "👗",
+  electronics:        "📱",
+  jewelery:           "💎",
+};
+
+
+function initCategoriesSwiper(categories) {
+  const wrapper = document.getElementById("categoriesWrapper");
+
+  wrapper.appendChild(createCategorySlide("Todos", "✦", "all", true));
+
+  categories.forEach((cat) => {
+    const icon = CATEGORY_ICONS[cat] ?? "🏷️";
+    wrapper.appendChild(createCategorySlide(cap(cat), icon, cat, false));
+  });
+
+  new Swiper(".categories-swiper", {
+    slidesPerView: 1.5,
+    spaceBetween: 16,
+    grabCursor: true,
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    breakpoints: {
+      480:  { slidesPerView: 2.5 },
+      768:  { slidesPerView: 3.5 },
+      1024: { slidesPerView: 4, spaceBetween: 20 },
+      1280: { slidesPerView: 5, spaceBetween: 20 },
+    },
+  });
+}
+
+function createCategorySlide(label, icon, value, isActive) {
+  const slide = document.createElement("div");
+  slide.className = "swiper-slide";
+
+  const inner = document.createElement("div");
+  inner.className = `category-slide${isActive ? " active" : ""}`;
+  inner.dataset.category = value;
+  inner.innerHTML = `
+    <span class="category-icon" aria-hidden="true">${icon}</span>
+    <span class="category-name">${label}</span>
+  `;
+
+  inner.addEventListener("click", () => {
+    activeCategory = value;
+    document
+      .querySelectorAll(".category-slide")
+      .forEach((s) => s.classList.toggle("active", s.dataset.category === value));
+    syncFilterButtons(value);
+    renderProductGrid();
+  });
+
+  slide.appendChild(inner);
+  return slide;
+}
+
+
 function renderFilterButtons(categories) {
   const bar = document.getElementById("filterBar");
   if (!bar) return;
   bar.innerHTML = "";
   bar.appendChild(createFilterButton("Todos", "all", true));
   categories.forEach((cat) =>
-    bar.appendChild(createFilterButton(cap(cat), cat, false)),
+    bar.appendChild(createFilterButton(cap(cat), cat, false))
   );
 }
 
@@ -19,24 +80,36 @@ function createFilterButton(label, value, isActive) {
   btn.textContent = label;
   btn.addEventListener("click", () => {
     activeCategory = value;
-    document
-      .querySelectorAll(".filter-btn")
-      .forEach((b) =>
-        b.classList.toggle("active", b.dataset.category === value),
-      );
+    syncFilterButtons(value);
+    syncCategorySlides(value);
     renderProductGrid();
   });
   return btn;
 }
+
+function syncFilterButtons(value) {
+  document
+    .querySelectorAll(".filter-btn")
+    .forEach((b) => b.classList.toggle("active", b.dataset.category === value));
+}
+
+function syncCategorySlides(value) {
+  document
+    .querySelectorAll(".category-slide")
+    .forEach((s) => s.classList.toggle("active", s.dataset.category === value));
+}
+
 
 function filterBySearch(query) {
   searchQuery = query.toLowerCase().trim();
   renderProductGrid();
 }
 
+
 function getFilteredProducts() {
   return allProducts.filter((p) => {
-    const matchCat = activeCategory === "all" || p.category === activeCategory;
+    const matchCat =
+      activeCategory === "all" || p.category === activeCategory;
     const matchSearch =
       !searchQuery ||
       p.title.toLowerCase().includes(searchQuery) ||
@@ -46,10 +119,10 @@ function getFilteredProducts() {
 }
 
 function renderProductGrid() {
-  const grid = document.getElementById("productsGrid");
+  const grid      = document.getElementById("productsGrid");
   const emptyState = document.getElementById("emptyState");
-  const countEl = document.getElementById("productsCount");
-  const products = getFilteredProducts();
+  const countEl   = document.getElementById("productsCount");
+  const products  = getFilteredProducts();
 
   if (products.length === 0) {
     grid.innerHTML = "";
@@ -85,7 +158,7 @@ function renderProductGrid() {
         </div>
       </article>
     </div>
-  `,
+  `
     )
     .join("");
 
@@ -100,6 +173,7 @@ function renderProductGrid() {
     });
   });
 }
+
 
 function cap(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
