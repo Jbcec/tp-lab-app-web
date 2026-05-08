@@ -61,7 +61,9 @@
               aria-controls="cartSidebar"
             >
               <i class="bi bi-bag"></i>
-              <span class="cart-badge" id="cartBadge" aria-live="polite">0</span>
+              <span class="cart-badge" id="cartBadge" aria-live="polite"
+                >0</span
+              >
             </button>
             <button
               class="navbar-toggler luxe-toggler"
@@ -111,13 +113,16 @@
           <p class="section-subtitle" id="productsCount"></p>
         </div>
         <div class="luxe-search-filter-bar">
-          <div class="luxe-filter-bar"
+          <div
+            class="luxe-filter-bar"
             id="filterBar"
             role="group"
             aria-label="Filtrar por categoría"
           ></div>
           <div class="luxe-search-wrapper">
-            <label for="searchInput" class="visually-hidden">Buscar productos</label>
+            <label for="searchInput" class="visually-hidden"
+              >Buscar productos</label
+            >
             <div class="input-group">
               <span class="input-group-text luxe-search-icon">
                 <i class="bi bi-search"></i>
@@ -224,22 +229,39 @@
               </div>
             </div>
           </div>
+
           <div class="modal-footer luxe-modal-footer">
-            <button
-              type="button"
-              class="btn luxe-btn-outline"
-              data-bs-dismiss="modal"
-            >
-              Seguir comprando
-            </button>
-            <button
-              type="button"
-              class="btn luxe-btn-primary"
-              id="modalAddToCartBtn"
-              data-bs-dismiss="modal"
-            >
-              <i class="bi bi-bag-plus me-2"></i>Agregar al carrito
-            </button>
+            <div class="modal-qty-controls">
+              <button
+                class="qty-btn"
+                id="modalQtyDecrement"
+                aria-label="Disminuir cantidad"
+                disabled
+              >−</button>
+              <span class="qty-value" id="modalQtyValue">1</span>
+              <button
+                class="qty-btn"
+                id="modalQtyIncrement"
+                aria-label="Aumentar cantidad"
+              >+</button>
+            </div>
+            <div class="modal-footer-buttons">
+              <button
+                type="button"
+                class="btn luxe-btn-outline"
+                data-bs-dismiss="modal"
+              >
+                Seguir comprando
+              </button>
+              <button
+                type="button"
+                class="btn luxe-btn-primary"
+                id="modalAddToCartBtn"
+                data-bs-dismiss="modal"
+              >
+                <i class="bi bi-bag-plus me-2"></i>Agregar al carrito
+              </button>
+            </div>
           </div>
         </div>
       </div>

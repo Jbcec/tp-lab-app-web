@@ -7,6 +7,7 @@ const cartBadge     = document.getElementById('cartBadge');
 const cartTotalEl   = document.getElementById('cartTotal');
 const cartToggleBtn = document.getElementById('cartToggleBtn');
 
+// ─── Sidebar ────────────────────────────────────────────────
 
 function openCart() {
   cartSidebar.classList.add('open');
@@ -25,6 +26,7 @@ function closeCart() {
   document.body.style.overflow = '';
 }
 
+// ─── Render del sidebar ─────────────────────────────────────
 
 function renderCartSidebar() {
   const items = getCart();
@@ -105,6 +107,8 @@ function renderCartSidebar() {
   });
 }
 
+// ─── Badge ───────────────────────────────────────────────────
+
 function updateCartBadge() {
   const count = getCartCount();
   cartBadge.textContent = count;
@@ -114,8 +118,11 @@ function updateCartBadge() {
   setTimeout(() => cartBadge.classList.remove('bump'), 300);
 }
 
+// ─── Modal de producto ───────────────────────────────────────
 
 let currentModalProduct = null;
+
+let modalSelectedQty = 1;
 
 function openProductModal(product) {
   currentModalProduct = product;
@@ -132,7 +139,17 @@ function openProductModal(product) {
   document.getElementById('modalProductRating').innerHTML =
     `${renderStars(rating)} <span>${rating.toFixed(1)} (${count} reseñas)</span>`;
 
+  modalSelectedQty = 1;
+  const qtyValue = document.getElementById('modalQtyValue');
+  const qtyDec   = document.getElementById('modalQtyDecrement');
+  qtyValue.textContent = '1';
+  qtyDec.disabled = true;
+
   bootstrap.Modal.getOrCreateInstance(document.getElementById('productModal')).show();
+}
+
+function getModalSelectedQty() {
+  return modalSelectedQty;
 }
 
 function renderStars(rating) {
@@ -145,6 +162,8 @@ function renderStars(rating) {
     ...Array(empty).fill('<i class="bi bi-star" aria-hidden="true"></i>'),
   ].join('');
 }
+
+// ─── Alertas (SweetAlert2) ───────────────────────────────────
 
 function showToast(message, icon = 'success') {
   Swal.fire({
